@@ -31,8 +31,8 @@
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ian-ecr-repo
           IMAGE_TAG: ${{ github.sha }}
+          ECR_REPOSITORY: ian-ecr-repo
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
