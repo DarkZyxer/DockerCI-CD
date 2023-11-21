@@ -7,6 +7,7 @@
     ECS_SERVICE: ian-testtask
     ECS_CLUSTER: ian-ecs-cluster
     ECS_TASK_DEFINITION: arn:aws:ecs:ap-northeast-1:656070376635:task-definition/Ian-Task
+    CONTAINER_NAME: nginxweb
   jobs:
     build-and-push:
       name: Build and Push to ECR
