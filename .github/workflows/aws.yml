@@ -3,6 +3,10 @@
   on:
     push:
       branches: [ main ]
+  env:
+    ECS_SERVICE: ian-testtask
+    ECS_CLUSTER: ian-ecs-cluster
+    ECS_TASK_DEFINITION: arn:aws:ecs:ap-northeast-1:656070376635:task-definition/Ian-Task
   jobs:
     build-and-push:
       name: Build and Push to ECR
@@ -33,9 +37,6 @@
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ian-ecr-repo
           IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-          ECS_SERVICE: ian-testtask
-          ECS_CLUSTER: ian-ecs-cluster
-          ECS_TASK_DEFINITION: arn:aws:ecs:ap-northeast-1:656070376635:task-definition/Ian-Task
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
