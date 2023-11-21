@@ -6,7 +6,7 @@
   env:
     ECS_SERVICE: ian-testtask
     ECS_CLUSTER: ian-ecs-cluster
-    ECS_TASK_DEFINITION: Ian-Task-revision2.json
+    ECS_TASK_DEFINITION: Ian-Task-revision4.json
     CONTAINER_NAME: nginxweb
   jobs:
     build-and-push:
