@@ -35,11 +35,9 @@ jobs:
         ECR_REPOSITORY: ian-ecr-repo
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  # Construct the full image URI
-        docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
-        echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-        echo "::set-output name=image::$IMAGE_URI"  # Set the full image URI as output
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
