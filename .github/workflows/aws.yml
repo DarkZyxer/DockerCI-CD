@@ -3,10 +3,10 @@ on:
   push:
     branches: [ main ]
 env:
-  ECS_SERVICE: ian-testtask
-  ECS_CLUSTER: ian-ecs-cluster
-  ECS_TASK_DEFINITION: Ian-Task-revision4.json
-  CONTAINER_NAME: nginxweb
+  ECS_SERVICE: Ian-testservice #can be changed to your working service
+  ECS_CLUSTER: ian-ecs-cluster #can be changed to your own cluster
+  ECS_TASK_DEFINITION: ian-ecs-task-revision1.json #can be changed to your own task definition
+  CONTAINER_NAME: dockerweb #can be changed to your container name
 jobs:
   build-and-push:
     name: Build and Push to ECR
@@ -32,7 +32,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ian-ecr-repo
+        ECR_REPOSITORY: ian-ecr-repo #can be changed to your ecr repository
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
