@@ -7,6 +7,7 @@ env:
   ECS_CLUSTER: ian-ecs-cluster
   ECS_TASK_DEFINITION: Ian-Task-revision4.json
   CONTAINER_NAME: nginxweb
+  ECR_REPOSITORY: ian-ecr-repo
 jobs:
   build-and-push:
     name: Build and Push to ECR
@@ -32,7 +33,6 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ian-ecr-repo
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
