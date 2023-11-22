@@ -7,7 +7,6 @@ env:
   ECS_CLUSTER: ian-ecs-cluster
   ECS_TASK_DEFINITION: Ian-Task-revision4.json
   CONTAINER_NAME: nginxweb
-  ECR_REPOSITORY: ian-ecr-repo
 jobs:
   build-and-push:
     name: Build and Push to ECR
@@ -33,11 +32,14 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ian-ecr-repo
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  # Construct the full image URI
+        docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        echo "::set-output name=image::$IMAGE_URI"  # Set the full image URI as output
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
