@@ -3,10 +3,10 @@ on:
   push:
     branches: [ main ]
 env:
-  ECS_SERVICE: Ian-testservice #can be changed to your working service
+  ECS_SERVICE: Ian-Testtask #can be changed to your working service
   ECS_CLUSTER: ian-ecs-cluster #can be changed to your own cluster
-  ECS_TASK_DEFINITION: ian-ecs-task-revision1.json #can be changed to your own task definition
-  CONTAINER_NAME: dockerweb #can be changed to your container name
+  ECS_TASK_DEFINITION: Ian-Task-revision4.json #can be changed to your own task definition
+  CONTAINER_NAME: nginxweb #can be changed to your container name
 jobs:
   build-and-push:
     name: Build and Push to ECR
